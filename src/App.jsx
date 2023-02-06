@@ -35,25 +35,104 @@ Ao enviar, deve-se apresentar um alert javascript com sucesso, limpar todos os c
 do formulário e zerar a barra de progresso novamente.
 */
 
-function App() {
+import { useState } from "react";
+
+function App () {
+  const [data, setData] = useState({
+    FullName: '',
+    Email: '',
+    MaritalStatus: '',
+    Genrer: ''
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setData((prev) => {
+      const newData = { ...prev, [name]: value }
+
+      return newData
+    })
+  }
+
+  const handleSubmit = () => {
+    alert("Formulário enviado com sucesso")
+    setData({
+      FullName: '',
+      Email: '',
+      MaritalStatus: '',
+      Genrer: ''
+    })
+  }
+
+  const calculateProgress = () => {
+    const fields = Object.entries(data).length
+    let value = 0
+    let progressToAdd = 100 / fields
+
+    for (const key in data) {
+      if (key === 'FullName'
+        && validateName())
+        value += progressToAdd
+      if (key === 'Email'
+        && validateEmail())
+        value += progressToAdd
+      if (key !== "FullName" && key !== 'Email' && data[key])
+        value += progressToAdd
+    }
+    return value
+  }
+
+  const validateName = () => {
+    const explodString = data.FullName.split(' ')
+    if (data.FullName) {
+      if (explodString[1])
+        return true
+      else
+        return false
+    }
+  }
+
+  const validateEmail = () => {
+    if (data.Email) {
+      let pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if (pattern.test(data.Email))
+        return true
+      else
+        return false
+    }
+  }
+  calculateProgress()
   return (
     <div className='App'>
       <h3>desafio fernandev</h3>
       <h1>progresso do formulário</h1>
-
       <main>
-        {/* crie a barra de progresso aqui */}
+        <div className="bar-container">
+          <div className="bar" style={{ width: `${calculateProgress()}%`, background: calculateProgress() >= 50 ? 'green' : 'rgb(139, 39, 39)' }}></div>
+        </div>
         <div className='form-group'>
           <label htmlFor=''>Nome Completo</label>
-          <input />
+          <input
+            value={data.FullName}
+            onChange={handleChange}
+            name='FullName'
+          />
         </div>
         <div className='form-group'>
           <label htmlFor=''>E-mail</label>
-          <input />
+          <input
+            value={data.Email}
+            onChange={handleChange}
+            name='Email'
+          />
         </div>
         <div className='form-group'>
           <label htmlFor=''>Estado Civil</label>
-          <select>
+          <select
+            value={data.MaritalStatus}
+            onChange={handleChange}
+            name='MaritalStatus'
+          >
             <option value=''>- selecione...</option>
             <option value='solteiro'>Solteiro</option>
             <option value='casado'>Casado</option>
@@ -64,14 +143,24 @@ function App() {
           <label htmlFor=''>Gênero</label>
           <div className='radios-container'>
             <span>
-              <input type='radio' /> Masculino
+              <input
+                type='radio'
+                name="Genrer"
+                value='masculino'
+                onChange={handleChange}
+                checked={data.Genrer === 'masculino'} /> Masculino
             </span>
             <span>
-              <input type='radio' /> Feminino
+              <input
+                type='radio'
+                name="Genrer"
+                value='feminino'
+                onChange={handleChange}
+                checked={data.Genrer === 'feminino'} /> Feminino
             </span>
           </div>
         </div>
-        <button>Enviar Formulário</button>
+        <button disabled={calculateProgress() !== 100} onClick={handleSubmit} >Enviar Formulário</button>
       </main>
     </div>
   );
