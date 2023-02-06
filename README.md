@@ -1,15 +1,12 @@
-# fernandev
+# Dev.Guih()
 
 ## React Interview Challenge #03
 
-E aí dev, tudo bem? Trouxe pra você mais um desafio de entrevista para que você possa treinar em casa e aprimorar suas habilidades.
-
-Dessa vez temos um formulário que deve alterar uma barra de progresso conforme seus campos vão sendo digitados pelo usuário. Muitos conceitos usados nesse desafio!
-
-Preste bem atenção às instruções dentro do arquivo App.jsx e bora codar!
-
+Esse é um desafio de react para entrevista de emprego, refiz ele de forma mais dinâmica com base no video onde o encontrei
+## Todos os creditos a [Fernandev](https://github.com/nandokferrari/fernandev-react-challenge-03) 
 **Se você curtir esse conteúdo, deixa uma STAR aí nesse repo, porque isso me motiva a trazer mais conteúdos desse gênero.**
 
-## Resolução do desafio
+## Resolução do desafio e Video onde encontrei
+
 
 https://youtu.be/ngcH4e2RTUM
